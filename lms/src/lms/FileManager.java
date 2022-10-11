@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 public class FileManager {
 
@@ -31,19 +32,19 @@ public class FileManager {
 		}
 	}
 	
-	public void fr(File file) {		
+	public ArrayList<Student> fr(File file) {		
 		try {
 			this.fr = new FileReader(this.file);
 			this.br = new BufferedReader(this.fr);
 			
 			while(this.br.ready()) {
 				String[] data = this.br.readLine().split(": ");
-				data
-				
-				
-				
-				
 				String[] info = data[0].split("/");
+				
+				list.
+				
+				
+				
 				int number = Integer.parseInt(info[0]);
 				String name = info[1];
 				
