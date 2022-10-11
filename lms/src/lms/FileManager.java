@@ -32,44 +32,38 @@ public class FileManager {
 		}
 	}
 	
-	public ArrayList<Student> fr(File file) {		
+	public ArrayList<Student> fr() {
+		// 학번/학생명: 수강과목1/성적1, 수강과목2/성적2, ...
 		try {
 			this.fr = new FileReader(this.file);
 			this.br = new BufferedReader(this.fr);
+			
+			ArrayList<Student> list = new ArrayList<>();
 			
 			while(this.br.ready()) {
 				String[] data = this.br.readLine().split(": ");
 				String[] info = data[0].split("/");
 				
-				list.
+				Student student = new Student(Integer.parseInt(info[0]), info[1]);
 				
-				
-				
-				int number = Integer.parseInt(info[0]);
-				String name = info[1];
-				
-				Student2 student = new Student2(number, name);
+				ArrayList<Subject> subList = new ArrayList<>();
 				
 				if(data.length > 1) {
-					student.subCnt = data.length - 1;
-					student.subjects = new Subject2[student.subCnt];
+					String[] info2 = data[1].split(", ");
 					
-					for(int i = 1; i < data.length; i++) {
-						info = data[i].split("/");
+					for(int i = 0; i < info2.length; i++) {
+						String[] info3 = info2[i].split("/");
 						
-						Subject2 subject = new Subject2(info[0]);
-						subject.score = Integer.parseInt(info[1]);
+						Subject subject = new Subject(info3[0]);
+						subject.setScore(Integer.parseInt(info3[1]));
 						
-						student.subjects[i - 1] = subject;
+						subList.add(subject);
 					}
 				}
 				
-				Student2[] temp = this.students;
-				this.students = new Student2[this.cnt + 1];
-				for(int i = 0; i < this.cnt; i++)
-					this.students[i] = temp[i];
-				this.students[this.cnt] = student;
-				this.cnt++;
+				student.setSubList(subList);
+				
+				list.add(student);
 			}
 			
 			this.fr.close();
@@ -77,9 +71,12 @@ public class FileManager {
 			
 			System.out.println("파일 로드 성공");
 			
+			return list;
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("파일 로드 실패");
+			return null;
 		}
 	}
 	
