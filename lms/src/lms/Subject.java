@@ -13,4 +13,12 @@ public class Subject {
 		return this.title;
 	}
 	
+	public int getScore() {
+		return this.score;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
 }
