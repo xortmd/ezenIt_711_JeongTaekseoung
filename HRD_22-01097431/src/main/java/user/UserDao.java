@@ -12,7 +12,7 @@ public class UserDao {
 	
 	private static UserDao instance = new UserDao();
 	
-	public static UserDao getInsetance() {
+	public static UserDao getInstance() {
 		return instance;
 	}
 	
