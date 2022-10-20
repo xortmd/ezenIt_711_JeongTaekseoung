@@ -12,6 +12,8 @@ class MainGame {
 		Player player = new Player();
 		Shop shop = new Shop();
 		FileData fileData = new FileData();
+		System.out.println("tsRPG에 오신 것을 환영합니다.");
+		System.out.println("길드를 모집하여 최종목표에 도전하세요.");
 		while (true) {
 			System.out.println("=============== [메인메뉴] ================");
 			System.out.println("[1.길드관리] [2.상점] [3.인벤토리] [4.던전입장]");
@@ -25,7 +27,7 @@ class MainGame {
 			} else if (sel == 3) {
 				player.inventoryMenu();
 			} else if (sel == 4) {
-//				ㅁㄴㅇ
+				player.dungeonMenu();
 			} else if (sel == 5) {
 				try {
 					fileData.save();

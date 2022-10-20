@@ -3,8 +3,8 @@ package rpg;
 public class Hero extends Unit {
 
 	static final int DEALER = 1; // 아이템 공격력 2배
-	static final int HEALER = 2; // 던전 라운드 종료시 마다 모든 파티원 체력 회복 +10
-	static final int TANKER = 3; // 아이템 방어력 2배
+	static final int HEALER = 2; // 던전 전투마다 모든 파티원 체력 회복 +10
+	static final int TANKER = 3; // 아이템 체력, 방어력 2배
 	
 	private int exp;
 	private boolean party;
@@ -12,53 +12,61 @@ public class Hero extends Unit {
 	private Item armor;
 	private Item ring;
 	private int job;
+	private int newHp;
 	
-	public Hero(String n, int l, int h, int a, int d, int e, int j) {
-		super(n, l, h, a, d);
-		this.exp = e;
+	public Hero(String name, int level, int hp, int att, int def, int exp, int job) {
+		super(name, level, hp, att, def);
+		this.exp = exp;
 		this.party = false;
-		this.job = j;
+		this.job = job;
+		this.newHp = hp;
 		this.weapon = null;
 		this.armor = null;
 		this.ring = null;
 	}
 
-	public Hero(String n, int l, int h, int a, int d, int e, boolean p, int j) {
-		super(n, l, h, a, d);
-		this.exp = e;
-		this.party = p;
-		this.job = j;
+	public Hero(String name, int level, int hp, int att, int def, int exp, boolean party, int job) {
+		super(name, level, hp, att, def);
+		this.exp = exp;
+		this.party = party;
+		this.job = job;
+		this.newHp = hp;
 		this.weapon = null;
 		this.armor = null;
 		this.ring = null;
 	}
 	
-	public void setItem(Item w, Item a, Item r) {
-		this.weapon = w;
-		this.armor = a;
-		this.ring = r;
+	public void setItem(Item weapon, Item armor, Item ring) {
+		this.weapon = weapon;
+		this.armor = armor;
+		this.ring = ring;
 	}
 	
 	public void printStatusHero() {
 		System.out.println("[이름: " + getName() + "]");
 		System.out.print("=[레벨: " + getLevel() + "]");
+		System.out.print(" [체력: " + getNewHp());
 		if (getRing() != null) {
-			System.out.print(" [체력: " + getHp() + " (+" + getRing().getPower());
-		} else {
-			System.out.print(" [체력: " + getHp());
-		}
-		if (getRing() != null) {
-			System.out.println(")/" + getMaxHp() + " (+" + getRing().getPower() + ")]");
+			if(getJob() == Hero.TANKER)
+				System.out.println("/" + getMaxHp() + "(+" + getRing().getPower()*2 + ")]");
+			else
+				System.out.println(")/" + getMaxHp() + "(+" + getRing().getPower() + ")]");
 		} else {
 			System.out.println("/" + getMaxHp() + "]");
 		}
 		if (getWeapon() != null) {
-			System.out.print("=[공격력: " + getAtt() + " (+" + getWeapon().getPower() + ")]");
+			if(getJob() == Hero.DEALER)
+				System.out.print("=[공격력: " + getAtt() + "(+" + getWeapon().getPower()*2 + ")]");
+			else
+				System.out.print("=[공격력: " + getAtt() + "(+" + getWeapon().getPower() + ")]");
 		} else {
 			System.out.print("=[공격력: " + getAtt() + "]");
 		}
 		if (getArmor() != null) {
-			System.out.println(" [방어력: " + getDef() + " + " + getArmor().getPower() + "]");
+			if(getJob() == Hero.TANKER)
+				System.out.println(" [방어력: " + getDef() + "(+ " + getArmor().getPower()*2 + ")]");
+			else
+				System.out.println(" [방어력: " + getDef() + "(+ " + getArmor().getPower() + ")]");
 		} else {
 			System.out.println(" [방어력: " + getDef() + "]");
 		}
@@ -68,17 +76,17 @@ public class Hero extends Unit {
 	
 	public void printEquitedItem() {
 		if (getWeapon() == null) {
-			System.out.println("[무기: 없음 ]");
+			System.out.println("[무기: 없음]");
 		} else {
 			System.out.println("[무기: " + getWeapon().getName() + "]");
 		}
 		if (getArmor() == null) {
-			System.out.println("[방어구: 없음 ]");
+			System.out.println("[방어구: 없음]");
 		} else {
 			System.out.println("[방어구: " + getArmor().getName() + "]");
 		}
 		if (getRing() == null) {
-			System.out.println("[반지: 없음 ]");
+			System.out.println("[반지: 없음]");
 		} else {
 			System.out.println("[반지: " + getRing().getName() + "]");
 		}
@@ -139,5 +147,13 @@ public class Hero extends Unit {
 
 	public void setJob(int job) {
 		this.job = job;
+	}
+
+	public int getNewHp() {
+		return newHp;
+	}
+
+	public void setNewHp(int newHp) {
+		this.newHp = newHp;
 	}
 }

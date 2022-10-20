@@ -96,13 +96,6 @@ public class Guild {
 		Hero temp = new Hero(name, 1, hp, att, def, 0, job);
 
 		System.out.println("=====================================");
-//		System.out.print("[이름 : " + name + "]");
-//		System.out.print(" [레벨 : " + 1 + "]");
-//		System.out.print(" [체력 : " + hp);
-//		System.out.println(" / " + hp + "]");
-//		System.out.print("[공격력 : " + att + "]");
-//		System.out.print(" [방어력 : " + def + "]");
-//		System.out.println(" [직업: " + temp.getJobString(job) + "]");
 		temp.printStatusHero();
 		System.out.println("길드원을 추가합니다.");
 		System.out.println("=====================================");
@@ -162,8 +155,11 @@ public class Guild {
 		printAllUnitStaus();
 		System.out.println("참가할 번호를 입력하세요 ");
 		int guildNum = MainGame.scan.nextInt();
-
-		partyList[partyNum - 1].setParty(false);
+		
+		for(int i = 0; i < guildList.size(); i++) {
+			if(partyList[partyNum - 1].getName().equals(guildList.get(i).getName()))
+				guildList.get(i).setParty(false);
+		}
 		guildList.get(guildNum - 1).setParty(true);
 
 		System.out.println("====================================");
@@ -190,7 +186,7 @@ public class Guild {
 	public void guildMenu() {
 		while (true) {
 			System.out.println("=============== [길드관리] ================");
-			System.out.println("[1.길드목록] [2.길드원추가] [3.길드원삭제]\n" + "[4.파티원교체] [5.정렬] [0.뒤로가기]");
+			System.out.println("[1.길드목록] [2.길드원추가] [3.길드원삭제]\n" + "[4.파티확인] [5.파티원교체] [6.정렬]\n" + "[0.뒤로가기]");
 			int sel = MainGame.scan.nextInt();
 			if (sel == 1) {
 				printAllUnitStaus();
@@ -199,6 +195,8 @@ public class Guild {
 			} else if (sel == 3) {
 				removeUnit();
 			} else if (sel == 4) {
+				printParty();
+			} else if (sel == 5) {
 				partyChange();
 			} else if (sel == 0) {
 				break;
@@ -212,6 +210,14 @@ public class Guild {
 
 	public void setGuildList(ArrayList<Hero> guildList) {
 		this.guildList = guildList;
+	}
+	
+	public Hero[] getPartyList() {
+		return partyList;
+	}
+
+	public void setPartyList(Hero[] partyList) {
+		this.partyList = partyList;
 	}
 
 }

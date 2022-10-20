@@ -10,14 +10,12 @@ public class Inventory {
 			System.out.println("============ [인벤메뉴] =============");
 			System.out.println("[1.착용] [2.판매] [0.뒤로가기]");
 			int sel = MainGame.scan.nextInt();
-			if (sel == 0)
-				break;
-			if (sel == 1) {
+			if (sel == 1)
 				equipMenu();
-			}
-			if (sel == 2) {
+			else if (sel == 2)
 				sellMenu();
-			}
+			else if (sel == 0)
+				break;				
 		}
 	}
 
@@ -49,6 +47,10 @@ public class Inventory {
 					getItemList().add(Player.getGuildUnit(selUnit - 1).getRing());
 				}
 				Player.getGuildUnit(selUnit - 1).setRing(getItemList().get(selEquip));
+				if(Player.getGuildUnit(selUnit - 1).getJob() == 3)
+					Player.getGuildUnit(selUnit - 1).setNewHp(Player.getGuildUnit(selUnit - 1).getHp() + getItemList().get(selEquip).getPower()*2);
+				else
+					Player.getGuildUnit(selUnit - 1).setNewHp(Player.getGuildUnit(selUnit - 1).getHp() + getItemList().get(selEquip).getPower());
 			}
 			getItemList().remove(selEquip);
 		}

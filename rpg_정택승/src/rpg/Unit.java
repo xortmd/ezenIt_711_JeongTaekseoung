@@ -11,14 +11,16 @@ public class Unit {
 	private int maxHp;
 	private int att;
 	private int def;
+	private boolean live;
 	
-	public Unit(String n, int l, int h, int a, int d) {
-		this.name = n;
-		this.level = 1;
-		this.maxHp = h;
+	public Unit(String name, int level, int hp, int att, int def) {
+		this.name = name;
+		this.level = level;
+		this.maxHp = hp;
 		this.hp = maxHp;
-		this.att = a;
-		this.def = d;
+		this.att = att;
+		this.def = def;
+		this.live = true;
 	}
 
 	public String getName() {
@@ -67,5 +69,13 @@ public class Unit {
 
 	public void setDef(int def) {
 		this.def = def;
+	}
+
+	public boolean isLive() {
+		return live;
+	}
+
+	public void setLive(boolean live) {
+		this.live = live;
 	}
 }

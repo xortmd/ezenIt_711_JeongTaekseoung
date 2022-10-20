@@ -6,10 +6,12 @@ public class Player {
 	private static int money;
 	private static Guild guild = new Guild();
 	private static Inventory inven = new Inventory();
+	private static Battle battle = new Battle();
 
 	Player() {
 		setMoney(100000);
 		getGuild().setGuild();
+		getBattle().setDungeonList();
 	}
 
 	public void guildMenu() {
@@ -62,5 +64,17 @@ public class Player {
 
 	public static void setGuild(Guild guild) {
 		Player.guild = guild;
+	}
+	
+	public static Battle getBattle() {
+		return battle;
+	}
+
+	public static void setBattle(Battle battle) {
+		Player.battle = battle;
+	}
+	
+	public void dungeonMenu() {
+		getBattle().dungeonMenu();
 	}
 }

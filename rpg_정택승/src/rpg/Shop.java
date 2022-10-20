@@ -9,63 +9,63 @@ public class Shop {
 		Item temp = new Item();
 		temp.setKind(Item.WEAPON);
 		temp.setName("나무검");
-		temp.setPower(3);
+		temp.setPower(10);
 		temp.setPrice(1000);
 		itemList.add(temp);
 
 		temp = new Item();
 		temp.setKind(Item.WEAPON);
 		temp.setName("철검");
-		temp.setPower(5);
+		temp.setPower(25);
 		temp.setPrice(2000);
 		itemList.add(temp);
 
 		temp = new Item();
 		temp.setKind(Item.WEAPON);
 		temp.setName("레이피어");
-		temp.setPower(7);
-		temp.setPrice(2500);
+		temp.setPower(50);
+		temp.setPrice(4000);
 		itemList.add(temp);
 
 		temp = new Item();
 		temp.setKind(Item.ARMOR);
 		temp.setName("티셔츠");
 		temp.setPower(1);
-		temp.setPrice(300);
+		temp.setPrice(500);
 		itemList.add(temp);
 
 		temp = new Item();
 		temp.setKind(Item.ARMOR);
 		temp.setName("가죽갑옷");
-		temp.setPower(4);
-		temp.setPrice(800);
+		temp.setPower(5);
+		temp.setPrice(1000);
 		itemList.add(temp);
 
 		temp = new Item();
 		temp.setKind(Item.ARMOR);
 		temp.setName("강철갑옷");
-		temp.setPower(7);
-		temp.setPrice(1500);
+		temp.setPower(15);
+		temp.setPrice(2000);
 		itemList.add(temp);
 
 		temp = new Item();
 		temp.setKind(Item.RING);
 		temp.setName("은반지");
-		temp.setPower(7);
+		temp.setPower(20);
 		temp.setPrice(3000);
 		itemList.add(temp);
 
 		temp = new Item();
 		temp.setKind(Item.RING);
 		temp.setName("금반지");
-		temp.setPower(17);
+		temp.setPower(50);
 		temp.setPrice(6000);
 		itemList.add(temp);
 
 		temp = new Item();
 		temp.setKind(Item.RING);
 		temp.setName("다이아반지");
-		temp.setPower(35);
+		temp.setPower(100);
 		temp.setPrice(20000);
 		itemList.add(temp);
 	}
