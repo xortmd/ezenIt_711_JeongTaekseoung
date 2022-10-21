@@ -72,6 +72,7 @@ public class Hero extends Unit {
 		}
 		System.out.print("=[파티중: " + isParty() + "]");
 		System.out.println("[직업: " + getJobString(getJob()) + "]");
+		System.out.println("=[경험치: " + getExp() + "/" + getLevel()*100 + "]");
 	}
 	
 	public void printEquitedItem() {

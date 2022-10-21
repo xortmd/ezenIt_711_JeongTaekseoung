@@ -8,29 +8,7 @@ public class Guild {
 	private Hero[] partyList;
 
 	public void setGuild() {
-		Hero temp = new Hero("호랑이", 1, 100, 10, 5, 0, Unit.DEALER);
-		guildList.add(temp);
-		temp = new Hero("강아지", 1, 80, 7, 3, 0, Unit.HEALER);
-		guildList.add(temp);
-		temp = new Hero("사슴", 1, 50, 3, 1, 0, Unit.TANKER);
-		guildList.add(temp);
-		temp = new Hero("두더지", 1, 70, 5, 2, 0, Unit.DEALER);
-		guildList.add(temp);
-		temp = new Hero("돼지", 1, 200, 4, 8, 0, Unit.TANKER);
-		guildList.add(temp);
-		temp = new Hero("사자", 1, 120, 11, 7, 0, Unit.DEALER);
-		guildList.add(temp);
-		for (int i = 0; i < 4; i++) {
-			guildList.get(i).setParty(true);
-		}
-		partyList = new Hero[PARTY_SIZE];
-		int n = 0;
-		for (int i = 0; i < guildList.size(); i++) {
-			if (guildList.get(i).isParty() == true) {
-				partyList[n] = guildList.get(i);
-				n += 1;
-			}
-		}
+		setPartyList();
 	}
 
 	public Hero getGuildUnit(int num) {
@@ -41,18 +19,14 @@ public class Guild {
 		System.out.println("======================================");
 		System.out.println("[골드 : " + Player.getMoney() + "]");
 		System.out.println("============= [길드원] =================");
-		for (int i = 0; i < guildList.size(); i++) {
-			System.out.print("[" + (i + 1) + "번] ");
-//			System.out.print(" [이름 : " + guildList.get(i).getName() + "]");
-//			System.out.print(" [레벨 : " + guildList.get(i).getLevel() + "]");
-//			System.out.print(" [체력 : " + guildList.get(i).getHp());
-//			System.out.println(" / " + guildList.get(i).getMaxHp() + "]");
-//			System.out.print("[공격력 : " + guildList.get(i).getAtt() + "]");
-//			System.out.print(" [방어력 : " + guildList.get(i).getDef() + "]");
-//			System.out.println(" [파티중 : " + guildList.get(i).isParty() + "]");
-//			System.out.println();
-			guildList.get(i).printStatusHero();
-			System.out.println();
+		if(guildList.size() == 0) {
+			System.out.println("(길드원 없음)");
+		} else {
+			for (int i = 0; i < guildList.size(); i++) {
+				System.out.print("[" + (i + 1) + "번] ");
+				guildList.get(i).printStatusHero();
+				System.out.println();
+			}			
 		}
 		System.out.println("=================================");
 	}
@@ -89,11 +63,22 @@ public class Guild {
 			job = MainGame.scan.nextInt();
 		}
 		
-		int ran = MainGame.ran.nextInt(8) + 2;
-		int hp = ran * 11;
-		int att = ran + 1;
-		int def = ran / 2 + 1;
-		Hero temp = new Hero(name, 1, hp, att, def, 0, job);
+		Hero temp = null;
+		if(guildList.size() < 4) {
+			if(job == Hero.DEALER)
+				temp = new Hero(name, 1, 50, 20, 1, 0, true, job);
+			else if(job == Hero.HEALER)
+				temp = new Hero(name, 1, 50, 10, 1, 0, true, job);
+			else if(job == Hero.TANKER)
+				temp = new Hero(name, 1, 100, 10, 5, 0, true, job);
+		} else {
+			if(job == Hero.DEALER)
+				temp = new Hero(name, 1, 50, 20, 1, 0, job);
+			else if(job == Hero.HEALER)
+				temp = new Hero(name, 1, 50, 10, 1, 0, job);
+			else if(job == Hero.TANKER)
+				temp = new Hero(name, 1, 100, 10, 5, 0, job);
+		}
 
 		System.out.println("=====================================");
 		temp.printStatusHero();
@@ -136,13 +121,35 @@ public class Guild {
 			System.out.print("[" + (i + 1) + "번]");
 			System.out.println(" [이름: " + partyList[i].getName() + "]");
 			System.out.print("=[레벨: " + partyList[i].getLevel() + "]");
-			System.out.print(" [체력: " + partyList[i].getHp());
-			System.out.println("/" + partyList[i].getMaxHp() + "]");
-			System.out.print("=[공격력: " + partyList[i].getAtt() + "]");
-			System.out.println(" [방어력: " + partyList[i].getDef() + "]");
+			System.out.print(" [체력: " + partyList[i].getNewHp());
+			if (partyList[i].getRing() != null) {
+				if(partyList[i].getJob() == Hero.TANKER)
+					System.out.println("/" + partyList[i].getMaxHp() + "(+" + partyList[i].getRing().getPower()*2 + ")]");
+				else
+					System.out.println(")/" + partyList[i].getMaxHp() + "(+" + partyList[i].getRing().getPower() + ")]");
+			} else {
+				System.out.println("/" + partyList[i].getMaxHp() + "]");
+			}
+			if (partyList[i].getWeapon() != null) {
+				if(partyList[i].getJob() == Hero.DEALER)
+					System.out.print("=[공격력: " + partyList[i].getAtt() + "(+" + partyList[i].getWeapon().getPower()*2 + ")]");
+				else
+					System.out.print("=[공격력: " + partyList[i].getAtt() + "(+" +partyList[i].getWeapon().getPower() + ")]");
+			} else {
+				System.out.print("=[공격력: " + partyList[i].getAtt() + "]");
+			}
+			if (partyList[i].getArmor() != null) {
+				if(partyList[i].getJob() == Hero.TANKER)
+					System.out.println(" [방어력: " + partyList[i].getDef() + "(+ " + partyList[i].getArmor().getPower()*2 + ")]");
+				else
+					System.out.println(" [방어력: " + partyList[i].getDef() + "(+ " + partyList[i].getArmor().getPower() + ")]");
+			} else {
+				System.out.println(" [방어력: " + partyList[i].getDef() + "]");
+			}
 			System.out.print("=[파티중: " + partyList[i].isParty() + "]");
 			System.out.println(" [직업: " + partyList[i].getJobString(partyList[i].getJob()) + "]");
-			System.out.println("");
+			System.out.println("=[경험치: " + partyList[i].getExp() + "/" + partyList[i].getLevel()*100 + "]");
+			System.out.println();
 		}
 		System.out.println("=====================================");
 	}
@@ -169,13 +176,8 @@ public class Guild {
 		System.out.println("으로 교체 합니다. ");
 		System.out.println("====================================");
 
-		int n = 0;
-		for (int i = 0; i < guildList.size(); i++) {
-			if (guildList.get(i).isParty()) {
-				partyList[n] = guildList.get(i);
-				n += 1;
-			}
-		}
+		partyList[partyNum - 1] = guildList.get(guildNum - 1);
+		
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -198,6 +200,8 @@ public class Guild {
 				printParty();
 			} else if (sel == 5) {
 				partyChange();
+			} else if (sel == 6) {
+				guildSort();
 			} else if (sel == 0) {
 				break;
 			}
@@ -215,9 +219,48 @@ public class Guild {
 	public Hero[] getPartyList() {
 		return partyList;
 	}
-
-	public void setPartyList(Hero[] partyList) {
-		this.partyList = partyList;
+	
+	public void setPartyList() {
+		partyList = new Hero[PARTY_SIZE];
+		int n = 0;
+		for (int i = 0; i < guildList.size(); i++) {
+			if (guildList.get(i).isParty()) {
+				partyList[n] = guildList.get(i);
+				n += 1;
+			}
+		}
 	}
-
+	
+	private void guildSort() {
+		System.out.println("[1.이름 정렬]");
+		System.out.println("[2.레벨 정렬]");
+		System.out.println("[3.공격력 정렬]");
+		System.out.println("[4.방어력 정렬]");
+		System.out.println("[5.체력 정렬]");
+		int sel = MainGame.scan.nextInt();
+		
+		if(sel == 1) {
+			for(int i = 0; i < guildList.size(); i++) {
+				for(int j = i; j < guildList.size(); j++) {
+					if(guildList.get(i).getName().compareTo(guildList.get(j).getName()) < 0) {
+						
+					}
+				}
+			}
+			System.out.println("이름 순으로 정렬되었습니다.");
+		} else if(sel == 2) {
+			
+			System.out.println("레벨 순으로 정렬되었습니다.");
+		} else if(sel == 3) {
+			
+			System.out.println("공격력 순으로 정렬되었습니다.");
+		} else if(sel == 4) {
+			
+			System.out.println("방어력 순으로 정렬되었습니다.");
+		} else if(sel == 5) {
+			
+			System.out.println("체력 순으로 정렬되었습니다.");
+		}
+		
+	}
 }

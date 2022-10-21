@@ -173,7 +173,7 @@ public class FileData {
 					item.setItem(itemKind, itemName, itemPower, itemPrice);
 					Player.getGuildList().get(i).setRing(item);
 				}
-
+				Player.getGuild().setPartyList();
 			}
 			// ===================== item ============================
 			String invenSize = br.readLine();
