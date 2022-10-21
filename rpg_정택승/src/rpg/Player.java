@@ -9,8 +9,8 @@ public class Player {
 	private static Battle battle = new Battle();
 
 	Player() {
-		setMoney(100000);
-		getGuild().setGuild();
+		setMoney(30000);
+		getGuild().setPartyList();
 		getBattle().setDungeonList();
 	}
 

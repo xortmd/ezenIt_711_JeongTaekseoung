@@ -8,13 +8,13 @@ public class Battle {
 	
 	public void setDungeonList() {
 		Dungeon temp = null;
-		temp = new Dungeon("농장", 1, 3000, 4);
+		temp = new Dungeon("농장", 1, 5000, 4);
 		this.dungeonList.add(temp);
-		temp = new Dungeon("아마존", 2, 6000, 4);
+		temp = new Dungeon("아마존", 2, 10000, 4);
 		this.dungeonList.add(temp);
-		temp = new Dungeon("시베리아", 3, 9000, 4);
+		temp = new Dungeon("시베리아", 3, 20000, 4);
 		this.dungeonList.add(temp);
-		temp = new Dungeon("사바나", 4, 15000, 4);
+		temp = new Dungeon("사바나", 4, 50000, 4);
 		this.dungeonList.add(temp);
 	}
 	
@@ -82,19 +82,19 @@ public class Battle {
 					monsterAttHero(idx, monster, party);
 					
 					if(party[idx].getNewHp() <= 0) {
-						sleep(1000);
+						sleep(500);
 						System.out.println(party[idx].getName() + " 사망!");
 						party[idx].setLive(false);
 						idx++;
 					}
 					
 					if(idx == party.length) {
-						sleep(1000);
+						sleep(500);
 						System.out.println("파티원이 전원 사망했습니다. 마을로 돌아갑니다.");
 						return;
 					}
 					
-					sleep(1000);
+					sleep(500);
 					
 					// 파티원은 총 공격력의 합으로 몬스터 공격
 					heroAttMonster(monster, party);
@@ -102,7 +102,7 @@ public class Battle {
 					int healCnt = 0;
 					for(int j = 0; j < party.length; j++) {
 						if(party[j].getJob() == Hero.HEALER && party[j].isLive())
-							healCnt++;
+							healCnt += party[j].getLevel();
 					}
 					
 					if(healCnt > 0) {
@@ -110,14 +110,20 @@ public class Battle {
 						System.out.println("모든 파티원 체력이 " + 10*healCnt + " 회복됩니다.");
 						for(int j = idx; j < party.length; j++) {
 							if(party[j].isLive()) {
-								party[j].setNewHp(party[j].getNewHp() + 10*healCnt);
-								
 								if(party[j].getRing() != null) {
-									if(party[j].getNewHp() > party[j].getMaxHp() + party[j].getRing().getPower())
-										party[j].setNewHp(party[j].getMaxHp() + party[j].getRing().getPower());
+									if(party[j].getJob() == Hero.TANKER) {
+										party[j].setNewHp(party[j].getNewHp() + 10*healCnt);
+										if(party[j].getNewHp() > party[j].getHp() + party[j].getRing().getPower()*2)
+											party[j].setNewHp(party[j].getHp() + party[j].getRing().getPower()*2);
+									} else {
+										party[j].setNewHp(party[j].getNewHp() + 10*healCnt);
+										if(party[j].getNewHp() > party[j].getHp() + party[j].getRing().getPower())
+											party[j].setNewHp(party[j].getHp() + party[j].getRing().getPower());
+									}
 								} else {
-									if(party[j].getNewHp() > party[j].getMaxHp())
-										party[j].setNewHp(party[j].getMaxHp());						
+									party[j].setNewHp(party[j].getNewHp());						
+									if(party[j].getNewHp() > party[j].getHp())
+										party[j].setNewHp(party[j].getHp());
 								}								
 							}
 						}
@@ -140,7 +146,7 @@ public class Battle {
 						}
 					}
 					
-					sleep(1000);
+					sleep(500);
 				}
 			} else if(sel == 2) {
 				System.out.println("마을로 돌아갑니다.");
@@ -162,6 +168,20 @@ public class Battle {
 						System.out.println(party[j].getName() + " LEVEL UP!");
 						party[j].setExp(party[j].getExp() - party[j].getLevel()*100);
 						party[j].setLevel(party[j].getLevel() + 1);
+						
+						if(party[j].getJob() == Hero.DEALER) {
+							party[j].setAtt(party[j].getAtt() + 10);
+							party[j].setDef(party[j].getDef() + 1);
+							party[j].setHp(party[j].getHp() + 15);
+						} else if(party[j].getJob() == Hero.HEALER) {
+							party[j].setAtt(party[j].getAtt() + 5);
+							party[j].setDef(party[j].getDef() + 1);
+							party[j].setHp(party[j].getHp() + 15);
+						} else if(party[j].getJob() == Hero.TANKER) {
+							party[j].setAtt(party[j].getAtt() + 5);
+							party[j].setDef(party[j].getDef() + 2);
+							party[j].setHp(party[j].getHp() + 30);
+						}
 					}									
 				} else {
 					party[j].setExp(party[j].getExp() + monster.getMonExp());									
@@ -173,12 +193,15 @@ public class Battle {
 	private void monsterAttHero(int idx, Monster monster, Hero[] party) {
 		System.out.println(party[idx].getName() + " <<< " + monster.getName() + " 공격!");
 		
-		sleep(1000);
+		sleep(500);
 		
 		int damage;
-		if(party[idx].getArmor() != null)
-			damage = monster.getAtt() - (party[idx].getDef() + party[idx].getArmor().getPower());
-		else
+		if(party[idx].getArmor() != null) {
+			if(party[idx].getJob() == Hero.TANKER)
+				damage = monster.getAtt() - (party[idx].getDef() + party[idx].getArmor().getPower()*2);
+			else
+				damage = monster.getAtt() - (party[idx].getDef() + party[idx].getArmor().getPower());
+		} else
 			damage = monster.getAtt() - party[idx].getDef();
 		
 		if(damage < 0)
@@ -189,15 +212,15 @@ public class Battle {
 		if(party[idx].getNewHp() <= 0)
 			party[idx].setNewHp(0);
 		
-		System.out.print(party[idx].getName() + " " + damage + " 피해! (체력: " + party[idx].getNewHp());
+		System.out.print(party[idx].getName() + " " + damage + " 피해! [체력: " + party[idx].getNewHp());
 		
 		if (party[idx].getRing() != null) {
 			if(party[idx].getJob() == Hero.TANKER)
-				System.out.println("/" + party[idx].getMaxHp() + "(+" + party[idx].getRing().getPower()*2 + ")]");
+				System.out.println("/" + party[idx].getHp() + "(+" + party[idx].getRing().getPower()*2 + ")]");
 			else
-				System.out.println("/" + party[idx].getMaxHp() + "(+" + party[idx].getRing().getPower() + ")]");
+				System.out.println("/" + party[idx].getHp() + "(+" + party[idx].getRing().getPower() + ")]");
 		} else {
-			System.out.println("/" + party[idx].getMaxHp() + "]");
+			System.out.println("/" + party[idx].getHp() + "]");
 		}
 		System.out.println();
 	}
@@ -205,7 +228,7 @@ public class Battle {
 	private void heroAttMonster(Monster monster, Hero[] party) {
 		System.out.println("파티원 >>> " + monster.getName() + " 공격!");
 		
-		sleep(1000);
+		sleep(500);
 		
 		int attTotal = 0;
 		for(int j = 0; j < party.length; j++) {
@@ -230,10 +253,19 @@ public class Battle {
 		if(monster.getHp() <= 0)
 			monster.setHp(0);
 		
-		System.out.println(monster.getName() + " " + damage + " 피해! (체력: " + monster.getHp() + "/" + monster.getMaxHp() + "]");
+		System.out.println(monster.getName() + " " + damage + " 피해! [체력: " + monster.getHp() + "/" + monster.getMaxHp() + "]");
 		System.out.println();
 		
-		sleep(1000);
+		sleep(500);
+	}
+	
+	public void setMonsterHp() {
+		for(int i = 0; i < dungeonList.size(); i++) {
+			for(int j = 0; j < dungeonList.get(i).getMonsters().size(); j++) {
+				dungeonList.get(i).getMonsters().get(j).setHp(dungeonList.get(i).getMonsters().get(j).getMaxHp());
+				dungeonList.get(i).getMonsters().get(j).setLive(true);
+			}
+		}
 	}
 	
 	public void sleep(int sleepTime) {

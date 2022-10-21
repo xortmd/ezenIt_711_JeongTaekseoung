@@ -25,7 +25,7 @@ public class FileData {
 			gameData += "/";
 			gameData += temp.get(i).getLevel();
 			gameData += "/";
-			gameData += temp.get(i).getMaxHp();
+			gameData += temp.get(i).getHp();
 			gameData += "/";
 			gameData += temp.get(i).getAtt();
 			gameData += "/";
@@ -99,10 +99,10 @@ public class FileData {
 			gameData += item.getPrice();
 			gameData += "\r\n";
 		}
-		System.out.println(gameData);
+//		System.out.println(gameData);
 		fout.write(gameData, 0, gameData.length());
 		fout.close();
-
+		System.out.println("저장되었습니다.");
 	}
 
 	void loadData() throws IOException {
@@ -116,23 +116,23 @@ public class FileData {
 			br = new BufferedReader(reader);
 			String money = br.readLine();
 			Player.setMoney(Integer.parseInt(money));
-			System.out.println(Player.getMoney());
+//			System.out.println(Player.getMoney());
 			String guildSize = br.readLine();
 			int size = Integer.parseInt(guildSize);
 			Player.getGuild().getGuildList().clear();
-			System.out.println(size);
+//			System.out.println(size);
 			for (int i = 0; i < size; i++) {
 				String unitData = br.readLine();
 				String[] unitArr = unitData.split("/");
 				String name = unitArr[0];
 				int level = Integer.parseInt(unitArr[1]);
-				int maxhp = Integer.parseInt(unitArr[2]);
+				int hp = Integer.parseInt(unitArr[2]);
 				int att = Integer.parseInt(unitArr[3]);
 				int def = Integer.parseInt(unitArr[4]);
 				int exp = Integer.parseInt(unitArr[5]);
 				boolean party = Boolean.parseBoolean(unitArr[6]);
 				int job = Integer.parseInt(unitArr[7]);
-				Hero temp = new Hero(name, level, maxhp, att, def, exp, party, job);
+				Hero temp = new Hero(name, level, hp, att, def, exp, party, job);
 				Player.getGuild().getGuildList().add(temp);
 				// ==================== item =======================
 				String itemData = br.readLine();
@@ -172,12 +172,17 @@ public class FileData {
 					Item item = new Item();
 					item.setItem(itemKind, itemName, itemPower, itemPrice);
 					Player.getGuildList().get(i).setRing(item);
+					
+					if(Player.getGuildList().get(i).getJob() == Hero.TANKER)
+						Player.getGuildList().get(i).setNewHp(hp + item.getPower()*2);
+					else
+						Player.getGuildList().get(i).setNewHp(hp + item.getPower());
 				}
 				Player.getGuild().setPartyList();
 			}
 			// ===================== item ============================
 			String invenSize = br.readLine();
-			System.out.println(invenSize);
+//			System.out.println(invenSize);
 			int inSize = Integer.parseInt(invenSize);
 
 			Player.getInven().getItemList().clear();
@@ -192,8 +197,8 @@ public class FileData {
 				item.setItem(itemKind, itemName, itemPower, itemPrice);
 				Player.getInven().getItemList().add(item);
 			}
-
 		}
+		System.out.println("게임을 불러옵니다.");
 	}
 
 }

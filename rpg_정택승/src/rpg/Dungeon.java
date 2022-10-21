@@ -12,12 +12,12 @@ public class Dungeon {
 	private String bossName;
 	private boolean clear;
 	
-	public Dungeon(String dn, int dl, int p, int r) {
-		this.monsters = getDungeonMonsters(dl);
-		this.dungeonName = dn;
-		this.dungeonLv = dl;
-		this.prize = p;
-		this.round = r;
+	public Dungeon(String dungeonName, int dungeonLv, int prize, int round) {
+		this.monsters = getDungeonMonsters(dungeonLv);
+		this.dungeonName = dungeonName;
+		this.dungeonLv = dungeonLv;
+		this.prize = prize;
+		this.round = round;
 		this.bossName = monsters.get(monsters.size() - 1).getName();
 		this.clear = false;
 	}
@@ -26,40 +26,40 @@ public class Dungeon {
 		ArrayList<Monster> result = new ArrayList<>();
 		Monster temp = null;
 		if(dl == 1) {
-			temp = new Monster("닭", 1, 20, 1, 1, false, 310);
+			temp = new Monster("닭", 1, 50, 10, 1, false, 10);
 			result.add(temp);
-			temp = new Monster("토끼", 1, 30, 3, 1, false, 15);
+			temp = new Monster("토끼", 2, 75, 20, 3, false, 15);
 			result.add(temp);
-			temp = new Monster("돼지", 2, 50, 5, 2, false, 20);
+			temp = new Monster("돼지", 3, 100, 40, 5, false, 25);
 			result.add(temp);
-			temp = new Monster("황소", 3, 70, 10, 3, true, 30);
+			temp = new Monster("황소", 6, 200, 80, 10, true, 50);
 			result.add(temp);
 		} else if(dl == 2) {
-			temp = new Monster("앵무새", 2, 40, 5, 1, false, 20);
+			temp = new Monster("앵무새", 5, 60, 20, 4, false, 25);
 			result.add(temp);
-			temp = new Monster("아나콘다", 3, 60, 10, 2, false, 40);
+			temp = new Monster("아나콘다", 7, 120, 50, 8, false, 50);
 			result.add(temp);
-			temp = new Monster("악어", 3, 70, 15, 3, false, 50);
+			temp = new Monster("악어", 9, 180, 90, 10, false, 100);
 			result.add(temp);
-			temp = new Monster("고릴라", 4, 100, 30, 5, true, 80);
+			temp = new Monster("고릴라", 12, 500, 150, 20, true, 200);
 			result.add(temp);
 		} else if(dl == 3) {
-			temp = new Monster("늑대", 3, 60, 20, 2, false, 50);
+			temp = new Monster("늑대", 9, 100, 60, 7, false, 50);
 			result.add(temp);
-			temp = new Monster("독수리", 4, 80, 25, 2, false, 60);
+			temp = new Monster("독수리", 10, 200, 100, 10, false, 100);
 			result.add(temp);
-			temp = new Monster("호랑이", 5, 100, 50, 4, false, 80);
+			temp = new Monster("호랑이", 16, 500, 250, 15, false, 250);
 			result.add(temp);
-			temp = new Monster("불곰", 6, 150, 60, 6, true, 120);
+			temp = new Monster("불곰", 18, 1200, 300, 30, true, 400);
 			result.add(temp);
 		} else if(dl == 4) {
-			temp = new Monster("얼룩말", 4, 80, 30, 3, false, 100);
+			temp = new Monster("얼룩말", 15, 400, 70, 10, false, 100);
 			result.add(temp);
-			temp = new Monster("기린", 5, 100, 45, 5, false, 140);
+			temp = new Monster("기린", 18, 1000, 100, 20, false, 200);
 			result.add(temp);
-			temp = new Monster("사자", 6, 100, 70, 4, false, 200);
+			temp = new Monster("사자", 20, 800, 300, 15, false, 350);
 			result.add(temp);
-			temp = new Monster("코끼리", 8, 250, 100, 10, true, 500);
+			temp = new Monster("코끼리", 30, 3000, 800, 50, true, 650);
 			result.add(temp);
 		}
 		return result;

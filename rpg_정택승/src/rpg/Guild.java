@@ -7,10 +7,6 @@ public class Guild {
 	private ArrayList<Hero> guildList = new ArrayList<>();
 	private Hero[] partyList;
 
-	public void setGuild() {
-		setPartyList();
-	}
-
 	public Hero getGuildUnit(int num) {
 		return guildList.get(num);
 	}
@@ -54,7 +50,7 @@ public class Guild {
 			}
 		}
 		
-		System.out.print("길드원 직업 입력(딜러-1, 힐러-2, 탱커-3): ");
+		System.out.print("길드원 직업 입력[딜러(1), 힐러(2), 탱커(3)]: ");
 		int job = MainGame.scan.nextInt();
 		
 		while(job < 1 || 3 < job) {
@@ -66,18 +62,18 @@ public class Guild {
 		Hero temp = null;
 		if(guildList.size() < 4) {
 			if(job == Hero.DEALER)
-				temp = new Hero(name, 1, 50, 20, 1, 0, true, job);
+				temp = new Hero(name, 1, 50, 15, 1, 0, true, job);
 			else if(job == Hero.HEALER)
 				temp = new Hero(name, 1, 50, 10, 1, 0, true, job);
 			else if(job == Hero.TANKER)
-				temp = new Hero(name, 1, 100, 10, 5, 0, true, job);
+				temp = new Hero(name, 1, 80, 10, 3, 0, true, job);
 		} else {
 			if(job == Hero.DEALER)
-				temp = new Hero(name, 1, 50, 20, 1, 0, job);
+				temp = new Hero(name, 1, 50, 15, 1, 0, job);
 			else if(job == Hero.HEALER)
 				temp = new Hero(name, 1, 50, 10, 1, 0, job);
 			else if(job == Hero.TANKER)
-				temp = new Hero(name, 1, 100, 10, 5, 0, job);
+				temp = new Hero(name, 1, 80, 10, 3, 0, job);
 		}
 
 		System.out.println("=====================================");
@@ -124,11 +120,11 @@ public class Guild {
 			System.out.print(" [체력: " + partyList[i].getNewHp());
 			if (partyList[i].getRing() != null) {
 				if(partyList[i].getJob() == Hero.TANKER)
-					System.out.println("/" + partyList[i].getMaxHp() + "(+" + partyList[i].getRing().getPower()*2 + ")]");
+					System.out.println("/" + partyList[i].getHp() + "(+" + partyList[i].getRing().getPower()*2 + ")]");
 				else
-					System.out.println(")/" + partyList[i].getMaxHp() + "(+" + partyList[i].getRing().getPower() + ")]");
+					System.out.println("/" + partyList[i].getHp() + "(+" + partyList[i].getRing().getPower() + ")]");
 			} else {
-				System.out.println("/" + partyList[i].getMaxHp() + "]");
+				System.out.println("/" + partyList[i].getHp() + "]");
 			}
 			if (partyList[i].getWeapon() != null) {
 				if(partyList[i].getJob() == Hero.DEALER)
@@ -140,9 +136,9 @@ public class Guild {
 			}
 			if (partyList[i].getArmor() != null) {
 				if(partyList[i].getJob() == Hero.TANKER)
-					System.out.println(" [방어력: " + partyList[i].getDef() + "(+ " + partyList[i].getArmor().getPower()*2 + ")]");
+					System.out.println(" [방어력: " + partyList[i].getDef() + "(+" + partyList[i].getArmor().getPower()*2 + ")]");
 				else
-					System.out.println(" [방어력: " + partyList[i].getDef() + "(+ " + partyList[i].getArmor().getPower() + ")]");
+					System.out.println(" [방어력: " + partyList[i].getDef() + "(+" + partyList[i].getArmor().getPower() + ")]");
 			} else {
 				System.out.println(" [방어력: " + partyList[i].getDef() + "]");
 			}
@@ -242,25 +238,134 @@ public class Guild {
 		if(sel == 1) {
 			for(int i = 0; i < guildList.size(); i++) {
 				for(int j = i; j < guildList.size(); j++) {
-					if(guildList.get(i).getName().compareTo(guildList.get(j).getName()) < 0) {
-						
+					if(guildList.get(i).getName().compareTo(guildList.get(j).getName()) > 0) {
+						Hero temp = guildList.get(i);
+						guildList.set(i, guildList.get(j));
+						guildList.set(j, temp);
 					}
 				}
 			}
 			System.out.println("이름 순으로 정렬되었습니다.");
 		} else if(sel == 2) {
-			
+			for(int i = 0; i < guildList.size(); i++) {
+				for(int j = i; j < guildList.size(); j++) {
+					if(guildList.get(i).getLevel() < guildList.get(j).getLevel()) {
+						Hero temp = guildList.get(i);
+						guildList.set(i, guildList.get(j));
+						guildList.set(j, temp);
+					}
+				}
+			}
 			System.out.println("레벨 순으로 정렬되었습니다.");
 		} else if(sel == 3) {
-			
+			for(int i = 0; i < guildList.size(); i++) {
+				int attI;
+				if(guildList.get(i).getWeapon() != null) {
+					if(guildList.get(i).getJob() == Hero.DEALER) {
+						attI = guildList.get(i).getAtt() + guildList.get(i).getWeapon().getPower()*2;
+					} else {
+						attI = guildList.get(i).getAtt() + guildList.get(i).getWeapon().getPower();
+					}						
+				} else {
+					attI = guildList.get(i).getAtt();
+				}
+				for(int j = i; j < guildList.size(); j++) {
+					int attJ;
+					if(guildList.get(j).getWeapon() != null) {
+						if(guildList.get(j).getJob() == Hero.DEALER) {
+							attJ = guildList.get(j).getAtt() + guildList.get(j).getWeapon().getPower()*2;
+						} else {
+							attJ = guildList.get(j).getAtt() + guildList.get(j).getWeapon().getPower();
+						}						
+					} else {
+						attJ = guildList.get(j).getAtt();
+					}
+					if(attI < attJ) {
+						Hero temp = guildList.get(i);
+						guildList.set(i, guildList.get(j));
+						guildList.set(j, temp);
+						attI = attJ;
+					}
+				}
+			}
 			System.out.println("공격력 순으로 정렬되었습니다.");
 		} else if(sel == 4) {
-			
+			for(int i = 0; i < guildList.size(); i++) {
+				int defI;
+				if(guildList.get(i).getArmor() != null) {
+					if(guildList.get(i).getJob() == Hero.TANKER) {
+						defI = guildList.get(i).getDef() + guildList.get(i).getArmor().getPower()*2;
+					} else {
+						defI = guildList.get(i).getDef() + guildList.get(i).getArmor().getPower();
+					}						
+				} else {
+					defI = guildList.get(i).getDef();
+				}
+				for(int j = i; j < guildList.size(); j++) {
+					int defJ;
+					if(guildList.get(j).getArmor() != null) {
+						if(guildList.get(j).getJob() == Hero.TANKER) {
+							defJ = guildList.get(j).getDef() + guildList.get(j).getArmor().getPower()*2;
+						} else {
+							defJ = guildList.get(j).getDef() + guildList.get(j).getArmor().getPower();
+						}						
+					} else {
+						defJ = guildList.get(j).getDef();
+					}
+					if(defI < defJ) {
+						Hero temp = guildList.get(i);
+						guildList.set(i, guildList.get(j));
+						guildList.set(j, temp);
+						defI = defJ;
+					}
+				}
+			}
 			System.out.println("방어력 순으로 정렬되었습니다.");
 		} else if(sel == 5) {
-			
+			for(int i = 0; i < guildList.size(); i++) {
+				int hpI;
+				if(guildList.get(i).getRing() != null) {
+					if(guildList.get(i).getJob() == Hero.DEALER) {
+						hpI = guildList.get(i).getHp() + guildList.get(i).getRing().getPower()*2;
+					} else {
+						hpI = guildList.get(i).getHp() + guildList.get(i).getRing().getPower();
+					}						
+				} else {
+					hpI = guildList.get(i).getHp();
+				}
+				for(int j = i; j < guildList.size(); j++) {
+					int hpJ;
+					if(guildList.get(j).getRing() != null) {
+						if(guildList.get(j).getJob() == Hero.DEALER) {
+							hpJ = guildList.get(j).getHp() + guildList.get(j).getRing().getPower()*2;
+						} else {
+							hpJ = guildList.get(j).getHp() + guildList.get(j).getRing().getPower();
+						}						
+					} else {
+						hpJ = guildList.get(j).getHp();
+					}
+					if(hpI < hpJ) {
+						Hero temp = guildList.get(i);
+						guildList.set(i, guildList.get(j));
+						guildList.set(j, temp);
+						hpI = hpJ;
+					}
+				}
+			}
 			System.out.println("체력 순으로 정렬되었습니다.");
 		}
-		
+	}
+	
+	public void setHeroHp() {
+		for(int i = 0; i < guildList.size(); i++) {
+			if(guildList.get(i).getRing() != null) {
+				if(guildList.get(i).getJob() == Hero.TANKER)
+					guildList.get(i).setNewHp(guildList.get(i).getHp() + guildList.get(i).getRing().getPower()*2);
+				else
+					guildList.get(i).setNewHp(guildList.get(i).getHp() + guildList.get(i).getRing().getPower());
+			} else
+				guildList.get(i).setNewHp(guildList.get(i).getHp());
+			guildList.get(i).setLive(true);
+		}
 	}
 }

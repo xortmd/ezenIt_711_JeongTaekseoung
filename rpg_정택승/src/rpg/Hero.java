@@ -3,7 +3,7 @@ package rpg;
 public class Hero extends Unit {
 
 	static final int DEALER = 1; // 아이템 공격력 2배
-	static final int HEALER = 2; // 던전 전투마다 모든 파티원 체력 회복 +10
+	static final int HEALER = 2; // 던전 전투마다 모든 파티원 체력 회복 +10*레벨
 	static final int TANKER = 3; // 아이템 체력, 방어력 2배
 	
 	private int exp;
@@ -48,11 +48,11 @@ public class Hero extends Unit {
 		System.out.print(" [체력: " + getNewHp());
 		if (getRing() != null) {
 			if(getJob() == Hero.TANKER)
-				System.out.println("/" + getMaxHp() + "(+" + getRing().getPower()*2 + ")]");
+				System.out.println("/" + getHp() + "(+" + getRing().getPower()*2 + ")]");
 			else
-				System.out.println(")/" + getMaxHp() + "(+" + getRing().getPower() + ")]");
+				System.out.println("/" + getHp() + "(+" + getRing().getPower() + ")]");
 		} else {
-			System.out.println("/" + getMaxHp() + "]");
+			System.out.println("/" + getHp() + "]");
 		}
 		if (getWeapon() != null) {
 			if(getJob() == Hero.DEALER)
