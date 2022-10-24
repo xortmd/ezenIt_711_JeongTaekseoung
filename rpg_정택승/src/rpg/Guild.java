@@ -89,6 +89,12 @@ public class Guild {
 
 		guildList.add(temp);
 		Player.setMoney(Player.getMoney() - 5000);
+		for(int i = 0; i < this.partyList.length; i++) {
+			if(partyList[i] == null) {
+				partyList[i] = temp;
+				break;
+			}
+		}
 	}
 
 	public void removeUnit() {
