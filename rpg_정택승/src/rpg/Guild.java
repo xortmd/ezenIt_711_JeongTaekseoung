@@ -99,6 +99,15 @@ public class Guild {
 
 	public void removeUnit() {
 		printAllUnitStaus();
+		int cnt = 0;
+		for(int i = 0; i < guildList.size(); i++) {
+			if(guildList.get(i).isParty())
+				cnt++;
+		}
+		if(cnt == 0) {
+			System.out.println("삭제할 수 있는 길드원이 없습니다.");
+			return;
+		}
 		System.out.println("삭제할 번호를 입력하세요 ");
 		int sel = MainGame.scan.nextInt();
 		if (guildList.get(sel - 1).isParty()) {
