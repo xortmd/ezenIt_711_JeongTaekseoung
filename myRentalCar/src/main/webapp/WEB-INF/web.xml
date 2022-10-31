@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>myRentalCar</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>CarCreate</servlet-name>
+  	<servlet-class>car.CarCreateAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CarCreate</servlet-name>
+  	<url-pattern>/CarCreate</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>CarUpdate</servlet-name>
+  	<servlet-class>car.CarUpdateAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CarUpdate</servlet-name>
+  	<url-pattern>/CarUpdate</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>CarDelete</servlet-name>
+  	<servlet-class>car.CarDeleteAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CarDelete</servlet-name>
+  	<url-pattern>/CarDelete</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>UserJoin</servlet-name>
+  	<servlet-class>user.UserJoinAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserJoin</servlet-name>
+  	<url-pattern>/UserJoin</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>UserLogin</servlet-name>
+  	<servlet-class>user.UserLoginAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserLogin</servlet-name>
+  	<url-pattern>/UserLogin</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>UserLogout</servlet-name>
+  	<servlet-class>user.UserLogoutAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserLogout</servlet-name>
+  	<url-pattern>/UserLogout</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>UserMypage</servlet-name>
+  	<servlet-class>user.UserMypageAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserMypage</servlet-name>
+  	<url-pattern>/UserMypage</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>CommunityWrite</servlet-name>
+  	<servlet-class>community.CommunityWriteAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CommunityWrite</servlet-name>
+  	<url-pattern>/CommunityWrite</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>CommunityUpdate</servlet-name>
+  	<servlet-class>community.CommunityUpdateAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CommunityUpdate</servlet-name>
+  	<url-pattern>/CommunityUpdate</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>CommunityDelete</servlet-name>
+  	<servlet-class>community.CommunityDeleteAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CommunityDelete</servlet-name>
+  	<url-pattern>/CommunityDelete</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>NoticeWrite</servlet-name>
+  	<servlet-class>notice.NoticeWriteAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>NoticeWrite</servlet-name>
+  	<url-pattern>/NoticeWrite</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>NoticeUpdate</servlet-name>
+  	<servlet-class>notice.NoticeUpdateAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>NoticeUpdate</servlet-name>
+  	<url-pattern>/NoticeUpdate</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>NoticeDelete</servlet-name>
+  	<servlet-class>notice.NoticeDeleteAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>NoticeDelete</servlet-name>
+  	<url-pattern>/NoticeDelete</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  <servlet>
+  	<servlet-name>index</servlet-name>
+  	<jsp-file>/index.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>index</servlet-name>
+  	<url-pattern>/index</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>carList</servlet-name>
+  	<jsp-file>/carList.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>carList</servlet-name>
+  	<url-pattern>/carList</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>carCreateForm</servlet-name>
+  	<jsp-file>/carCreateForm.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>carCreateForm</servlet-name>
+  	<url-pattern>/carCreateForm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>carUpdateForm</servlet-name>
+  	<jsp-file>/carUpdateForm.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>carUpdateForm</servlet-name>
+  	<url-pattern>/carUpdateForm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>userJoinForm</servlet-name>
+  	<jsp-file>/userJoinForm.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>userJoinForm</servlet-name>
+  	<url-pattern>/userJoinForm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>userLoginForm</servlet-name>
+  	<jsp-file>/userLoginForm.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>userLoginForm</servlet-name>
+  	<url-pattern>/userLoginForm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>userMypageForm</servlet-name>
+  	<jsp-file>/userMypageForm.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>userMypageForm</servlet-name>
+  	<url-pattern>/userMypageForm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>communityList</servlet-name>
+  	<jsp-file>/communityList.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>communityList</servlet-name>
+  	<url-pattern>/communityList</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>communityView</servlet-name>
+  	<jsp-file>/communityView.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>communityView</servlet-name>
+  	<url-pattern>/communityView</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>communityWriteForm</servlet-name>
+  	<jsp-file>/communityWriteForm.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>communityWriteForm</servlet-name>
+  	<url-pattern>/communityWriteForm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>communityUpdateForm</servlet-name>
+  	<jsp-file>/communityUpdateForm.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>communityUpdateForm</servlet-name>
+  	<url-pattern>/communityUpdateForm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>noticeList</servlet-name>
+  	<jsp-file>/noticeList.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>noticeList</servlet-name>
+  	<url-pattern>/noticeList</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>noticeView</servlet-name>
+  	<jsp-file>/noticeView.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>noticeView</servlet-name>
+  	<url-pattern>/noticeView</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>noticeWriteForm</servlet-name>
+  	<jsp-file>/noticeWriteForm.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>noticeWriteForm</servlet-name>
+  	<url-pattern>/noticeWriteForm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>noticeUpdateForm</servlet-name>
+  	<jsp-file>/noticeUpdateForm.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>noticeUpdateForm</servlet-name>
+  	<url-pattern>/noticeUpdateForm</url-pattern>
+  </servlet-mapping>
+</web-app>

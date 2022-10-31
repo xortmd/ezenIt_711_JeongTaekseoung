@@ -1,0 +1,43 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	text-align: center;
+	margin-top: 10%;
+}
+
+.table-container {
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+	margin: 10px auto auto auto;
+}
+
+table {
+	border-collapse: collapse;
+	border: solid 1px lightblue;
+}
+
+.td1 {
+	width: 138px;
+}
+
+th, td, button {
+	padding: 5px;
+}
+
+button {
+	border: solid 1px lightblue;
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.btn {
+	padding: 5px;
+	border: solid 1px lightblue;
+	margin-top: 10px;
+	cursor: pointer;
+	width: 335px;
+}
